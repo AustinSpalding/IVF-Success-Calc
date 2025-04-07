@@ -29,4 +29,4 @@ Then run the next command from your terminal/command line
 ```python
 python manage.py runserver <port>
 ```
-and navigate to localhost:<port> in your browser
+and navigate to `localhost:<port>` in your browser
