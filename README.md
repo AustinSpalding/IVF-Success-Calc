@@ -16,7 +16,17 @@ python manage.py collectstatic
 
 ## To run this application:
 
+make sure to add the following in `.env` at root level
+```
+SECRET_KEY=not_empty
+DEBUG=False
+
+ALLOWED_HOSTS=*
+```
+
+Then run the next command from your terminal/command line
+
 ```python
 python manage.py runserver <port>
 ```
-and then navigate to localhost:<port> in your browser
+and navigate to localhost:<port> in your browser

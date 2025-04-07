@@ -11,16 +11,18 @@
     <link rel="stylesheet" href="{% static 'main.css' %}">
 </head>
 
-<body>
-    <div style="margin:10px">
-        <div class="progress-bar-container" style="margin-bottom: 20px;">
-            <div class="progress-bar" id="myProgressBar" style="width:{{ chance }}%;"></div>
-            <div style="margin-left:{{ chance }}%;">
-                {{chance}}%
+<body> 
+    <div style="display: flex;">
+        <div style="margin:10px">
+            <div class="progress-bar-container" style="margin-bottom: 20px;">
+                <div class="progress-bar" id="myProgressBar" style="width:{{ chance }}%;"></div>
+                <div style="margin-left:{{ chance }}%;">
+                    {{chance}}%
+                </div>
             </div>
         </div>
+        <form style="margin: 10px;" action="{% url 'home' %}">
+            <input type="submit" value="Reset Calculator" />
+        </form>
     </div>
-    <form style="margin: 10px;" action="{% url 'home' %}">
-        <input type="submit" value="Reset Calculator" />
-    </form>
 </body>

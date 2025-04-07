@@ -17,8 +17,8 @@
             <p> Calculate Your IVF Success Chances: </p>
             <form action="{% url 'calculate' %}" method="POST">
             {% csrf_token %}
-                <div style="width: 100%; display: flexbox;">
-                    <div style="float: left; width:49%; border: 1px solid #ccc;">
+                <div style="width: 100%; display: flex;">
+                    <div style="flex: 1; border: 1px solid #ccc;">
                         <div>
                             <label for="age">Age: </label>
                             <input type="number" required="true" max="50" min="20" placeholder="age from 20-50" id="age" name="age"/>
@@ -29,7 +29,7 @@
                         </div>
                         <div>
                             <label for="height">Height: </label>
-                            <input type="number" required="true" min="0" placeholder="feet" id="height_ft" name="height_ft"/>
+                            <input type="number" required="true" min="0" placeholder="feet" id="height_ft" name="height_ft" maxlength="1" style="max-width: 15%;"/>
                             <input type="number" required="true" max="11" min="0" placeholder="inches" id="height_in" name="height_in"/>
                         </div>
                         <div>
@@ -53,7 +53,7 @@
                             <label for="reason_known">Reason for infertility known</label>
                         </div>
                     </div>
-                    <div style="float:right; width: 49%; border: 1px solid #ccc;">
+                    <div style="flex: 1; border: 1px solid #ccc;">
                         <legend>Infertility causes:</legend>
                         <input type="checkbox" id="tubal_factor" name="tubal_factor">
                         <label for="tubal_factor">Tubal Factor</label> <br>

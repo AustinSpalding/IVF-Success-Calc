@@ -3,25 +3,6 @@ import math
 from django.http import QueryDict
 from pathlib import Path
 
-FORM_FIELDS = [
-    'age',
-    'weight'
-    'height_ft',
-    'height_in',
-    'using_own_eggs'
-    'ivf_prev',
-    'preg_prev',
-    'live_births_prev',
-    'tubal_factor',
-    'male_factor',
-    'endometriosis',
-    'ovulatory_disorder'
-    'diminished_ovarian_reserve',
-    'uterine_factor',
-    'other',
-    'unknown'
-]
-
 INFERTILITY_CAUSES = [
     'tubal_factor',
     'male_factor_infertility',
@@ -53,26 +34,33 @@ def calculate_success(fields: QueryDict) -> int:
     ivf_prev = (True if fields.get('ivf_prev') else False) if using_own_eggs else None
     reason_known = True if fields.get('reason_known') else False
     formula = parse_csv_formulae()[(using_own_eggs, ivf_prev, reason_known)]
+
     score = float(formula['formula_intercept'])
     age = int(fields.get('age'))
     score += age * float(formula['formula_age_linear_coefficient'])
     score += (float(formula['formula_age_power_coefficient']) * (age ** float(formula['formula_age_power_factor'])))
+
     height_in = int(fields.get('height_ft')) * 12 + int(fields.get('height_in'))
     bmi = (int(fields.get('weight')) / (height_in)**2) * 703
     score += bmi * float(formula['formula_bmi_linear_coefficient'])
     score += (float(formula['formula_bmi_power_coefficient']) * (bmi ** float(formula['formula_bmi_power_factor'])))
+
     if fields.get('unexplained_infertility', False) :
         score += float(formula['formula_unexplained_infertility_true_value'])
     else :
         for cause in INFERTILITY_CAUSES:
             if fields.get(cause, False):
                 score += float(formula[f'formula_{cause}_true_value'])
+
     preg_prev = int(fields.get('preg_prev'))
     if preg_prev == 1:
         score += float(formula['formula_prior_pregnancies_1_value'])
     elif preg_prev > 1:
         score += float(formula['formula_prior_pregnancies_2+_value'])
+
     live_births_prev = int(fields.get('live_births_prev'))
+    if live_births_prev > preg_prev: # user misunderstanding
+        live_births_prev = preg_prev
     if live_births_prev == 1:
         score += float(formula['formula_prior_live_births_1_value'])
     elif live_births_prev > 1:
