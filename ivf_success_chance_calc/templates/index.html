@@ -1,0 +1,83 @@
+{% load django_browser_reload %}
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#000000">
+    <link rel="stylesheet" href="{% static 'main.css' %}">
+</head>
+
+<body>
+    <div class="App">
+        <div>
+            <p> Calculate Your IVF Success Chances: </p>
+            <form action="{% url 'calculate' %}" method="POST">
+            {% csrf_token %}
+                <div style="width: 100%; display: flexbox;">
+                    <div style="float: left; width:49%; border: 1px solid #ccc;">
+                        <div>
+                            <label for="age">Age: </label>
+                            <input type="number" required="true" max="50" min="20" placeholder="age from 20-50" id="age" name="age"/>
+                        </div>
+                        <div>
+                            <label for="weight">Weight: </label>
+                            <input type="number" required="true" max="300" min="80" placeholder="weight from 80-300 lbs" id="weight" name="weight"/>
+                        </div>
+                        <div>
+                            <label for="height">Height: </label>
+                            <input type="number" required="true" min="0" placeholder="feet" id="height_ft" name="height_ft"/>
+                            <input type="number" required="true" max="11" min="0" placeholder="inches" id="height_in" name="height_in"/>
+                        </div>
+                        <div>
+                            <label for="preg_prev">Past pregnancies: </label>
+                            <input type="number" required="true" min="0" placeholder="total previous pregnacies" id="preg_prev" name="preg_prev"/>
+                        </div>
+                        <div>
+                            <label for="live_births_prev">Past live births: </label>
+                            <input type="number" required="true" min="0" placeholder="total previous live births" id="live_births_prev" name="live_births_prev"/>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="using_own_eggs" name="using_own_eggs">
+                            <label for="using_own_eggs">Using Own Eggs</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="ivf_prev" name="ivf_prev">
+                            <label for="ivf_prev">Attempted IVF previously</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="reason_known" name="reason_known">
+                            <label for="reason_known">Reason for infertility known</label>
+                        </div>
+                    </div>
+                    <div style="float:right; width: 49%; border: 1px solid #ccc;">
+                        <legend>Infertility causes:</legend>
+                        <input type="checkbox" id="tubal_factor" name="tubal_factor">
+                        <label for="tubal_factor">Tubal Factor</label> <br>
+                        <input type="checkbox" id="male_factor_infertility" name="male_factor_infertility">
+                        <label for="male_factor_infertility">Male Factor Infertility</label> <br>
+                        <input type="checkbox" id="endometriosis" name="endometriosis">
+                        <label for="endometriosis">Endometriosis</label> <br>
+                        <input type="checkbox" id="ovulatory_disorder" name="ovulatory_disorder">
+                        <label for="ovulatory_disorder">Ovulatory Disorder</label> <br>
+                        <input type="checkbox" id="diminished_ovarian_reserve" name="diminished_ovarian_reserve">
+                        <label for="diminished_ovarian_reserve">Diminished Ovarian Reserve</label> <br>
+                        <input type="checkbox" id="uterine_factor" name="uterine_factor">
+                        <label for="uterine_factor">Uterine Factor</label> <br>
+                        <input type="checkbox" id="other_reason" name="other_reason">
+                        <label for="other_reason">Other Reason</label>
+                        <p>OR</p>
+                        <input type="checkbox" id="unexplained_infertility" name="unexplained_infertility">
+                        <label for="unexplained_infertility">Unexplained Infertility</label>
+                    </div>
+                </div>
+                <input type="submit" value="Calculate"/>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

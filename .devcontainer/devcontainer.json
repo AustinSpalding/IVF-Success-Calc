@@ -12,7 +12,7 @@
   "customizations": {
     "codespaces": {
       "openFiles": [
-        "hello_world/templates/index.html"
+        "ivf_success_chance_calc/templates/index.html"
       ]
     },
     "vscode": {

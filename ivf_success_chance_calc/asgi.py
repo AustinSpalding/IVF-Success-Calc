@@ -1,5 +1,5 @@
 """
-ASGI config for hello_world project.
+ASGI config for ivf_success_chance_calc project.
 
 It exposes the ASGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.asgi import get_asgi_application
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "hello_world.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "ivf_success_chance_calc.settings")
 
 application = get_asgi_application()

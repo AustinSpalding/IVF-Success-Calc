@@ -1,0 +1,26 @@
+{% load django_browser_reload %}
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#000000">
+    <link rel="stylesheet" href="{% static 'main.css' %}">
+</head>
+
+<body>
+    <div style="margin:10px">
+        <div class="progress-bar-container" style="margin-bottom: 20px;">
+            <div class="progress-bar" id="myProgressBar" style="width:{{ chance }}%;"></div>
+            <div style="margin-left:{{ chance }}%;">
+                {{chance}}%
+            </div>
+        </div>
+    </div>
+    <form style="margin: 10px;" action="{% url 'home' %}">
+        <input type="submit" value="Reset Calculator" />
+    </form>
+</body>
