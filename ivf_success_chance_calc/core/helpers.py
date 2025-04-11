@@ -7,7 +7,7 @@ INFERTILITY_CAUSES = [
     'tubal_factor',
     'male_factor_infertility',
     'endometriosis',
-    'ovulatory_disorder'
+    'ovulatory_disorder',
     'diminished_ovarian_reserve',
     'uterine_factor',
     'other_reason'
@@ -34,7 +34,6 @@ def calculate_success(fields: QueryDict) -> int:
     ivf_prev = (True if fields.get('ivf_prev') else False) if using_own_eggs else None
     reason_known = True if fields.get('reason_known') else False
     formula = parse_csv_formulae()[(using_own_eggs, ivf_prev, reason_known)]
-
     score = float(formula['formula_intercept'])
     age = int(fields.get('age'))
     score += age * float(formula['formula_age_linear_coefficient'])
@@ -47,7 +46,7 @@ def calculate_success(fields: QueryDict) -> int:
 
     if fields.get('unexplained_infertility', False) :
         score += float(formula['formula_unexplained_infertility_true_value'])
-    else :
+    else:
         for cause in INFERTILITY_CAUSES:
             if fields.get(cause, False):
                 score += float(formula[f'formula_{cause}_true_value'])
@@ -66,4 +65,5 @@ def calculate_success(fields: QueryDict) -> int:
     elif live_births_prev > 1:
         score += float(formula['formula_prior_live_births_2+_value'])
     chance = math.exp(score.real) / (1 + math.exp(score.real))
+    print(score)
     return round(chance*100)
